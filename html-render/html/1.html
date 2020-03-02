@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="bill">
+    <div class="header">  ПІІ "МакДональдз Укрейн Лтд"
+  Закусочна "Смілянська"
+м. Черкаси. Вулиця Смілянська, 31
+  Телефон закладу: (050) 463-91-20
+  (0472) 54-52-35
+  Телефон гарячої лінії :
+          0-800-50-15-79
+          ПН 237444526652
+    ЗН СП802400259   ФН 3000477964
+        Керімова Н. Каса 25
+ ----------------------------------------
+      ---- НОМЕР ЗАМОВЛЕННЯ: ----
+          #####    #####   #####
+         ##   ##  ##   ## ##   ##
+         ##   ##   #####      ##
+         ##   ##  ##   ##  ###
+         ##   ##  ##   ## ##
+         ##   ##  ##   ## ##
+          #####    #####  #######
+ -------------------------------------</div>
+    <div class="items"></div>
+
+    <div class="header"> ----------------------------------------</div>
+    <div class="total">
+        <div class="total-number"></div>
+        Сума
+    </div>
+
+<div class="header">               ПДВ_А А = 20.00%    19.50
+ ----------------------------------------
+ Картка                            117.00
+ Транзакція №:
+ 912382880468
+ ----------------------------------------
+ АТ ОЩАДБАНК
+ ID ТЕРМІНАЛА: 22300118
+ ID ТОЧКИ:     22300023
+ ------------------------------------
+               ЧЕК 3615
+            ОПЛАТА ТОВАРУ
+ СУМА:                      117.00
+              УСПІШНО
+ КОД ВІДПОВІДІ: 00
+ Visa Credit                 3832
+ 4731XXXXXXXX8465           xx/xx
+  /
+                    A000000031010
+ КОД АВТОРИЗАЦІЇ:          822750
+ НОМЕР ПОСИЛАННЯ:    912382214494
+ ПОРЯД. НОМЕР:             003862
+ НОМЕР ЦИКЛУ:              002152
+ ДАТА: 03/05/2019   ЧАС: 20:59:55
+ Ingenico Group.TE80187.20/12/18
+ ------------------------------------
+ ------------------------------------
+  Поділись з нами своїми враженнями
+  від візиту на mctellus.com
+  Ваш код для опитування:
+      02B8-E5YG-M11X
+ ------------------------------------
+ 000011264 00049            3.05.2019 20:59
+           МакДональдз № 14
+
+           ВДЯЧНІ ЗА ВІЗИТ!
+           www.mcdonalds.ua
+          ФІКСАЛЬНИЙ ЧЕК DY</div>
+</div>
+
+<style>
+    .bill {
+        font-family: Monospaced, monospace;
+        /*border: 1px solid black;*/
+        width: 200px;
+        font-size: 8px;
+        padding: 10px;
+    }
+
+    .header {
+        white-space: pre;
+    }
+
+    .item {
+        overflow: hidden;
+    }
+
+    .item-price {
+        float: right;
+        position: relative;
+    }
+
+    .item-name {
+        float: left;
+    }
+
+    .total {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+
+    .total-number {
+        float: right;
+    }
+
+    .items {
+        width: 180px;
+        padding-left: 10px;
+    }
+
+    .separator {
+        display: none;
+        z-index: 10;
+        width: 100%;
+        height: 0;
+    }
+
+    .separator-border {
+        z-index: 10;
+        width: 100%;
+        height: 1px;
+        background: white;
+        position: relative;
+        bottom: 1px;
+    }
+
+    .labeled {
+        color: transparent;
+        border: 1px solid transparent;
+    }
+
+    .labeled-total .separator,
+    .labeled-item .separator,
+    .labeled-item-price .separator,
+    .labeled-item-name .separator {
+        display: block;
+    }
+
+    .labeled-item-price .item-price {
+        background: red;
+    }
+
+    .labeled-item-name .item-name  {
+        background: blue;
+    }
+
+    .labeled-item .item {
+        background: yellow;
+    }
+
+    .labeled-total .total-number {
+        background: green;
+    }
+</style>
+
+<script>
+    let data = {
+        items: [
+            {"name": "ЧІКЕН МАКНАГЕТС9 МЕН", "price": "109.00 A"},
+            {"name": "СОУС СИРНИЙ", "price": "8.00 A"},
+            {"name": "* 1 КАРТОПЛЯНІ ДІПИ МЕНЮ"},
+            {"name": "* 1 ЧАЙ З БЕРГАМОТОМ МЕН"},
+        ],
+        labels: null
+        // ['item', 'item-price', 'item-name', 'total']
+    };
+
+    // Do not remove the comment below, it is used from python!!!
+    /*data*/
+
+    let total = 0;
+    for (let i of data.items) {
+        total += Number.parseFloat(i.price) || 0;
+
+        const item = document.createElement('div');
+        item.className = 'item';
+
+        const itemPrice = document.createElement('div');
+        itemPrice.className = 'item-price';
+        itemPrice.textContent = i.price;
+        item.appendChild(itemPrice);
+
+        const itemName = document.createElement('div');
+        itemName.className = 'item-name';
+        itemName.textContent = i.name;
+        item.appendChild(itemName);
+
+        const clear = document.createElement('div');
+        clear.style.clear = 'both';
+        item.appendChild(clear);
+
+        const separator = document.createElement('div');
+        separator.className = 'separator';
+        separator.innerHTML = '<div class="separator-border"></div>';
+        item.appendChild(separator);
+
+        document.querySelector('.items').appendChild(item);
+    }
+
+    document.querySelector('.total-number').textContent = total.toFixed(2);
+
+    if(typeof data.labels == 'string') {
+        document.querySelector('.bill').className = 'bill labeled labeled-' + data.labels;
+    }
+</script>
+
+</body>
+</html>
